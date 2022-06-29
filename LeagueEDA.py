@@ -70,7 +70,6 @@ def getdata(summoners_with_hot_streak):
         data_tuples = list(zip(player_lp_list,victory_status_list)) # List pairing the VictoryStatus to the Amount of LP to understand if the LP was gained or lost.
         temp_df = pd.DataFrame(data_tuples, columns=['LP','VictoryStatus']) # Creates dataframe of each tuple in list
         temp_df['Username'] = summoners_with_hot_streak[i] #Adds the username associated with each game
-        #print(data_tuples)
         df = pd.concat([temp_df,df]) #Appends to master dataframe
         df=(df.replace(r'^\s*$', np.nan, regex=True)) #replacing all empty spaces with NaN values
         df = df.replace(to_replace =["? LP"], value =np.nan) #replacing all ?LP with NaN values
@@ -140,7 +139,7 @@ def toCSV(consecutive_win_df, normal_win_loss_df):
 #Main 
 def main():
     api_key = secret.api_key
-    data2, data3 = sortdata(getdata(pullSummoners(2,api_key)))
-    toCSV(data2, data3)
+    data, data2 = sortdata(getdata(pullSummoners(2,api_key)))
+    toCSV(data, data2)
 
 main()
