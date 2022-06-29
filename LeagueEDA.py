@@ -27,7 +27,7 @@ def pullSummoners(repetition, api_key):
     return summoners_with_hot_streak
 
 #Function to webdrive pulled Summonernames into U.gg. 
-def getdata(summoners_with_hot_streak):
+def getData(summoners_with_hot_streak):
     # Creating Master Dataframe
     df = pd.DataFrame(columns=['Username','LP','VictoryStatus']) 
     #Providing additional options to our webdriver for error handling
@@ -78,7 +78,7 @@ def getdata(summoners_with_hot_streak):
     browser.close() #Closes browser
     return df
 #Sorting pulled user matches into games won consecutively and nonconsecutively and creating dataframes for each.
-def sortdata(df):
+def sortData(df):
     index_counter = 1
     victory_counter = 0
     win_counter = 0
@@ -139,7 +139,7 @@ def toCSV(consecutive_win_df, normal_win_loss_df):
 #Main 
 def main():
     api_key = secret.api_key
-    data, data2 = sortdata(getdata(pullSummoners(2,api_key)))
+    data, data2 = sortData(getData(pullSummoners(2,api_key)))
     toCSV(data, data2)
 
 main()
