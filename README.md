@@ -15,6 +15,6 @@ After collecting enough data on player matches, it has been determined that the 
 ![26ceddcac6d9fd4a410462fa2ea13c63](https://user-images.githubusercontent.com/95455528/176819692-3fd0b2ca-019f-465b-b135-1389c79b5560.png)
 
 ## What's Next?
-Truthfully, this project provides an excellent base to collect a multitude of insights throughout League of Legends, and I plan to use it for many projects to come. I plan to expand this project and provide more rating insights to players such as overall average amounts of LP gained and lost within each league bracket (Diamond, Gold, Silver, etc.), as well as possibly deploy a web application tool that leverages machine learning to predict the outcome of matches off of only the information available in champion select, so look out for that!
+Truthfully, this project provides an excellent base to collect a multitude of insights throughout League of Legends, and I plan to use it for many projects to come. I plan to expand this project and provide more rating insights to players such as overall average amounts of LP gained and lost within each league bracket (Diamond, Gold, Silver, etc.), as well as possibly deploy a web application tool that leverages machine learning to predict the outcome of matches based on only the information available in champion select, so look out for that!
 
 
