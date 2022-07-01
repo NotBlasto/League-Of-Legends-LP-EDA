@@ -27,7 +27,7 @@ def pullSummoners(repetition, api_key):
     return summoners_with_hot_streak
 
 #Function to webdrive pulled Summonernames into U.gg. 
-def getdata(summoners_with_hot_streak):
+def getData(summoners_with_hot_streak):
     # Creating Master Dataframe
     df = pd.DataFrame(columns=['Username','LP','VictoryStatus']) 
     #Providing additional options to our webdriver for error handling
@@ -48,9 +48,14 @@ def getdata(summoners_with_hot_streak):
     for i in range(len(summoners_with_hot_streak)):
         time.sleep(25) #Program sleeps for allotted time to allow web elements to load, and increase query time.
         search_bar = browser.find_element(by=By.NAME, value="query")#Finding search bar element
-        search_bar.is_displayed() #Ensuring search bar element is displayed
-        search_bar.send_keys(summoners_with_hot_streak[i], Keys.ENTER) #Sending usernames to searchbar
-        time.sleep(5) # allowing time to load
+        if search_bar.is_displayed(): #Ensuring search bar element is displayed
+            search_bar.send_keys(summoners_with_hot_streak[i], Keys.ENTER) #Sending usernames to searchbar
+            time.sleep(5) # allowing time to load
+        else:
+            browser.get(url)
+            time.sleep(15) 
+            search_bar.send_keys(summoners_with_hot_streak[i], Keys.ENTER)
+            time.sleep(5) # allowing time to load
 
 
         #Assigning VictoryStatus and LP values to browser elements.
@@ -79,7 +84,7 @@ def getdata(summoners_with_hot_streak):
     browser.close() #Closes browser
     return df
 #Sorting pulled user matches into games won consecutively and nonconsecutively and creating dataframes for each.
-def sortdata(df):
+def sortData(df):
     index_counter = 1
     victory_counter = 0
     win_counter = 0
@@ -132,15 +137,17 @@ def sortdata(df):
     return consecutive_win_df, normal_win_loss_df
 
 #Function to export dataframes to csv files.
-def toCSV(consecutive_win_df, normal_win_loss_df):
+def toCSV(df, consecutive_win_df, normal_win_loss_df):
     consecutive_win_df.to_csv('ConsecutiveWins.csv')
     normal_win_loss_df.to_csv('NonConsecutiveWins.csv')
+    df.to_csv('AllGameData.csv')
     print ('Dataframes successfully exported.')
 
 #Main 
 def main():
     api_key = secret.api_key
-    data2, data3 = sortdata(getdata(pullSummoners(2,api_key)))
-    toCSV(data2, data3)
+    data = getData(pullSummoners(3,api_key))
+    data2, data3 = sortData(data)
+    toCSV(data, data2, data3)
 
 main()
